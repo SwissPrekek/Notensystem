@@ -1,14 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: benj
- * Date: 04.06.19
- * Time: 19:14
- */
-?>
-
-
-
+//Indexfile der Notenverwaltung
 
 <!DOCTYPE html>
 <html lang="en">
