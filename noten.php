@@ -17,7 +17,7 @@ if (empty($error)) {
   $result = $stmt->get_result();
   if ($result->num_rows) {
     $row = $result->fetch_assoc();
-
+    //Testausgabe Kommt wieder weg.
   echo (" Ausgabe ".$row['firstname']);
   echo (" ".$row['lastname']);
   echo (" ".$row['username']);
