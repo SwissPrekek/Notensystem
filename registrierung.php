@@ -80,7 +80,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
       echo "New records created successfully";
     echo $password;
       $stmt->close();
-//      header('location: login.php');
+      header('location: login.php');
 
   }
 }
