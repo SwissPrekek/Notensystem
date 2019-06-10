@@ -1,23 +1,15 @@
 <?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = 'Notensystem';
 
-$host = 'localhost'; // host
+// Create connection
+$mysqli = new mysqli($servername, $username, $password, $database);
 
-$username = 'root'; // username
-
-$password = ''; // password
-
-$database = 'users'; // database
-
-
-// mit Datenbank verbinden
-
-$mysqli = new mysqli($host, $username, $password, $database);
-
-// fehlermeldung, falls verbindung fehl schlägt.
-
+// Check connection
 if ($mysqli->connect_error) {
-
-    die('Connect Error (' . $mysqli->connect_errno . ') '. $mysqli->connect_error);
-
-}
+    die("Connection failed: " . $mysqli->connect_error);
+} 
+echo "Connected successfully";
 ?>

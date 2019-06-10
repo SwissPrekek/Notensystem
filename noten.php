@@ -1,3 +1,32 @@
+<?php
+include('dbconnector.inc.php');
+
+if (empty($error)) {
+
+  // TODO SELECT Query erstellen, user und passwort mit Datenbank vergleichen
+  $query = "select * from users";
+  // TODO prepare()
+  $stmt = $mysqli->prepare($query);
+
+
+  // TODO execute()
+  if (!$stmt->execute()) {
+    echo "Ausführung";
+    $error .= 'execute() failed ' . $mysqli->error . '<br />';
+  }
+  $result = $stmt->get_result();
+  if ($result->num_rows) {
+    $row = $result->fetch_assoc();
+
+  echo (" Ausgabe ".$row['firstname']);
+  echo (" ".$row['lastname']);
+  echo (" ".$row['username']);
+    }
+  }
+
+
+
+?>
 <!doctype html>
 <html lang="en">
   <head>
