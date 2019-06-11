@@ -106,7 +106,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
      <!-- Button der direkt zum login.php verweist -->
-    <a href="login.php" class="btn btn-success">Direkt zum Login</a>
     <title>Registrierung am Notensystem</title>
 
     <!-- Bootstrap -->
@@ -183,6 +182,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         </div>
         <button type="submit" name="button" value="submit" class="btn btn-info">Senden</button>
         <button type="reset" name="button" value="reset" class="btn btn-warning">Löschen</button>
+        <a href="login.php" class="btn btn-success">Direkt zum Login</a>
       </form>
     </div>
 
