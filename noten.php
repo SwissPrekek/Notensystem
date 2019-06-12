@@ -1,4 +1,6 @@
 <?php
+
+
 include('dbconnector.inc.php');
 
 if (empty($error)) {
@@ -17,6 +19,7 @@ if (empty($error)) {
   $result = $stmt->get_result();
   if ($result->num_rows) {
     $row = $result->fetch_assoc();
+
     }
   }
 
@@ -60,7 +63,11 @@ if (empty($error)) {
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <?php echo ($row['firstname'] . " " . $row['lastname']); ?>
+      <?
+      phpsession_start();
+      session_regenerate_id(true);
+      echo ($_SESSION["username"]);
+      ?>
     </form>
   </div>
 </nav>

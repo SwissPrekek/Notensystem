@@ -58,6 +58,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)) {
 			if (password_verify($password, $row['password'])){
 			// TODO: wenn Passwort korrekt:  $message .= "Sie sind nun eingeloggt"
             $message .= "Sie sind nun eingeloggt";
+
+				session_start();
+				session_regenerate_id(true);
+
+				$_SESSION['username'] = 'Test';
+
+
             header('Location: noten.php');
 			} else {
 			$error .= "username oder PW falsch";
