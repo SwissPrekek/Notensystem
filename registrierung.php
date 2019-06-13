@@ -119,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 </head>
 <body>
 
-<div class="container">
+
 
     <div id="navbar">
 
@@ -210,7 +210,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <button type="submit" name="button" value="submit" class="btn btn-info">Senden</button>
         <button type="reset" name="button" value="reset" class="btn btn-warning">Löschen</button>
     </form>
-</div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

@@ -109,8 +109,15 @@ if (isset($_SESSION['loggedin'])) {
         </table>
     </div>
 
-</div>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Fachname" aria-label="Fachname" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+            <button class="btn btn-success" type="button">Fach hinzufügen</button>
+        </div>
+    </div>
 
+
+</div>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

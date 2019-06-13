@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: benj
- * Date: 13.06.19
- * Time: 10:29
- */
 
 // Session starten
 session_start();
@@ -16,6 +10,5 @@ session_unset();
 session_destroy();
 
 header('Location: login.php');
-
 
 ?>
