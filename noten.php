@@ -74,7 +74,7 @@ if (isset($_SESSION['loggedin'])) {
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0"><?php
-                    session_start();
+                    
                     session_regenerate_id(true);
                     echo $Login;
                     ?>

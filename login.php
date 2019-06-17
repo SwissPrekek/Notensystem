@@ -5,7 +5,8 @@ include('dbconnector.inc.php');
 
 $error = '';
 $message = '';
-
+$Noten = null;
+$row = null;
 session_start();
 if (isset($_SESSION['loggedin'])) {
     $Noten = "<a class=\"nav-link\" href=\"noten.php\">Noten<span class=\"sr-only\">(current)</span></a>";
