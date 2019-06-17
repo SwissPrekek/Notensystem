@@ -32,6 +32,32 @@ if (isset($_SESSION['loggedin'])) {
     $Login="<button type=\"button\" class=\"btn btn-primary disabled\">Logout</button>";
 }
 
+
+$avgmathe = null;
+// Abfrage AVG Mathe
+if (empty($error)) {
+
+    // TODO SELECT Query erstellen, user und passwort mit Datenbank vergleichen
+    $query1 = "select avg(Mathematik) from facher";
+    // TODO prepare()
+    $stmt1 = $mysqli->prepare($query1);
+
+
+    // TODO execute()
+    if (!$stmt1->execute()) {
+        echo "Ausführung";
+        $error .= 'execute() failed ' . $mysqli->error . '<br />';
+    }
+    $result = $stmt1->get_result();
+    
+    if ($result->num_rows) {
+        $row = $result->fetch_assoc();
+       $avgmathe = $row["avg(Mathematik)"];
+  
+    }
+}
+
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -93,8 +119,9 @@ if (isset($_SESSION['loggedin'])) {
             </thead>
             <tbody>
             <tr class="table-success">
-                <th scope="row">Deutsch</th>
-                <td>5.0</td>
+                <th scope="row">Mathematik</th>
+                <!-- Ausgabe der Variabel avgmathe -->
+                <td><?php echo $avgmathe ?></td>
             </tr>
             <tr class="table-success">
                 <th scope="row">Franz</th>
