@@ -1,8 +1,8 @@
 <?php
 $servername = "localhost";
-$username = "151";
+$username = "root";
 $password = "";
-$database = 'users';
+$database = 'notensystem';
 
 // Create connection
 $mysqli = new mysqli($servername, $username, $password, $database);
