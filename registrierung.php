@@ -1,5 +1,5 @@
 <?php
-
+$Noten = null;
 //Datenbankverbindung
 include('dbconnector.inc.php');
 

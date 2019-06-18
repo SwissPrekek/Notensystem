@@ -129,7 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)) {
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
-                    <?php echo($row['firstname'] . " " . $row['lastname']); ?>
+                <?php// echo($row['firstname'] . " " . $row['lastname']); ?>
                 </form>
             </div>
         </nav>

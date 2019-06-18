@@ -35,6 +35,7 @@ if (isset($_SESSION['loggedin'])) {
 
 $avgmathe = null;
 // Abfrage AVG Mathe
+/*
 if (empty($error)) {
 
     // TODO SELECT Query erstellen, user und passwort mit Datenbank vergleichen
@@ -56,7 +57,7 @@ if (empty($error)) {
   
     }
 }
-
+*/
 
 ?>
 <!doctype html>
@@ -142,6 +143,8 @@ if (empty($error)) {
             <button class="btn btn-success" type="button">Fach hinzufügen</button>
         </div>
     </div>
+
+    
 
 
 </div>
