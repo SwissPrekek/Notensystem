@@ -137,6 +137,22 @@ if (empty($error)) {
         </table>
     </div>
 
+    <div class="form-group">
+    <label for="fc_select">Semester</label>
+    <select class="form-control" id="fc_select">
+      <option>Bitte auswählen...</option>
+    </select>
+
+    <br />
+
+    <label for="fach_select">Fach</label>
+    <select class="form-control" id="fach_select">
+      <option>Bitte auswählen...</option>
+    </select>
+  </div>
+
+  <br />
+
     <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Fachname" aria-label="Fachname" aria-describedby="basic-addon2">
         <div class="input-group-append">
