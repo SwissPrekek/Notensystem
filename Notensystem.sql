@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 19. Jun 2019 um 13:09
+-- Erstellungszeit: 19. Jun 2019 um 15:08
 -- Server-Version: 10.1.39-MariaDB
 -- PHP-Version: 7.3.5
 
@@ -33,6 +33,16 @@ CREATE TABLE `faecher` (
   `name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Daten für Tabelle `faecher`
+--
+
+INSERT INTO `faecher` (`idFaecher`, `name`) VALUES
+(1, 'Mathematik'),
+(2, 'Englisch'),
+(3, 'Deutsch'),
+(4, 'ABU');
+
 -- --------------------------------------------------------
 
 --
@@ -60,6 +70,15 @@ CREATE TABLE `semester` (
   `name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Daten für Tabelle `semester`
+--
+
+INSERT INTO `semester` (`idSemester`, `name`) VALUES
+(1, '1'),
+(2, '2'),
+(3, '3');
+
 -- --------------------------------------------------------
 
 --
@@ -80,7 +99,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`idUsers`, `firstname`, `lastname`, `username`, `password`, `email`) VALUES
-(0, 'Fabian', 'Zeller', 'SwissPrekek', '$2y$10$wq7CeshoJbjL70k6WkAqlOkJUIlfWEO4irznlqOpUwyjInAq/gS92', 'fabian.z@eblcom.ch');
+(3, 'Fabian', 'Zeller', 'SwissPrekek', '$2y$10$5DDaCXRXLCt2C6.oddnG1.Rh/nKZ968Ivf2BcqLugHKuNACN9eqIO', 'fabian.z@eblcom.ch');
 
 --
 -- Indizes der exportierten Tabellen
@@ -112,6 +131,34 @@ ALTER TABLE `semester`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`idUsers`);
+
+--
+-- AUTO_INCREMENT für exportierte Tabellen
+--
+
+--
+-- AUTO_INCREMENT für Tabelle `faecher`
+--
+ALTER TABLE `faecher`
+  MODIFY `idFaecher` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT für Tabelle `pruefung`
+--
+ALTER TABLE `pruefung`
+  MODIFY `idPruefung` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT für Tabelle `semester`
+--
+ALTER TABLE `semester`
+  MODIFY `idSemester` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT für Tabelle `users`
+--
+ALTER TABLE `users`
+  MODIFY `idUsers` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints der exportierten Tabellen
