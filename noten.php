@@ -59,6 +59,27 @@ if (empty($error)) {
 }
 */
 
+
+$query = "SELECT * FROM users";
+
+$stmt = $mysqli->prepare($query);
+
+$stmt->bind_param("s", $username);
+$stmt->execute();
+
+$result=$stmt->get_result();
+
+while($row = $result->fetch_assoc()){
+
+    echo "Vorname: " . $row['firstname'] . ", Nachname : " . $row['lastname'] . "<br />";
+
+}
+
+$result->free();
+
+$stmt->close();
+
+
 ?>
 <!doctype html>
 <html lang="en">
