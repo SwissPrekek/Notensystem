@@ -47,17 +47,17 @@ if (empty($error)) {
     $stmt->bind_param("s", $_SESSION['username']);
 
     // TODO execute()
-   
+
     if (!$stmt->execute()) {
         echo "Ausführung";
         $error .= 'execute() failed ' . $mysqli->error . '<br />';
     }
     $result = $stmt->get_result();
-    
+
         if ($result->num_rows) {
             $row = $result->fetch_assoc();
     var_dump($row);
-        
+
     }
 }
 
@@ -78,11 +78,11 @@ if (empty($error)) {
         $error .= 'execute() failed ' . $mysqli->error . '<br />';
     }
     $result = $stmt1->get_result();
-    
+
     if ($result->num_rows) {
         $row = $result->fetch_assoc();
        $avgmathe = $row["avg(Mathematik)"];
-  
+
     }
 }
 */
@@ -101,6 +101,33 @@ while($row = $result->fetch_assoc()){
     echo "Vorname: " . $row['firstname'] . ", Nachname : " . $row['lastname'] . "<br />";
 
 }
+
+//Einfügen einer neuen Prüfung in die Pruefung Tabelle
+
+/**$stmt = $mysqli->prepare("INSERT INTO pruefung (name, grade, description, Users_idUsers, Faecher_idFaecher, Semester_idSemester) VALUES (?, ?, ?, ?, ?, ?)");
+$stmt->bind_param("sdssss", $name = "", $grade = 4, $description="", $Users_idUsers=4, $Faecher_idFaecher=1, $Semester_idSemester=1);
+$stmt->execute();
+
+echo "New records created successfully";
+echo $grade;
+*/
+
+
+//Abfrage der Fächer um es in das Select Feld einzufügen.
+$query = "SELECT * FROM pruefung";
+
+$stmt = $mysqli->prepare($query);
+
+$stmt->execute();
+
+$result=$stmt->get_result();
+
+while($row = $result->fetch_assoc()){
+    echo "<br />Fach: " . $row['name'] . " Note : " . $row['grade'] . "<br />";
+        $Faecher = "<option value='" . $row['Faecher_idFaecher'] . "'>" . $row['Faecher_idFaecher'] . "</option>";
+}
+
+
 
 $result->free();
 
@@ -149,7 +176,7 @@ $stmt->close();
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0"><?php
-                    
+
                     session_regenerate_id(true);
                     echo $Login;
                     ?>
@@ -187,7 +214,9 @@ $stmt->close();
 
     <label for="fach_select">Fach</label>
     <select class="form-control" id="fach_select">
-      <option>Bitte auswählen...</option>
+      <?php
+      echo $Faecher;
+      ?>
     </select>
   </div>
 
@@ -200,7 +229,7 @@ $stmt->close();
         </div>
     </div>
 
-    
+
 
 
 </div>

@@ -1,6 +1,6 @@
 <?php
 $servername = "localhost";
-$username = "User_Noten";
+$username = "root";
 $password = "";
 $database = 'notensystem';
 
