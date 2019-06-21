@@ -33,7 +33,35 @@ if (isset($_SESSION['loggedin'])) {
 }
 
 
-$avgmathe = null;
+$avg = null;
+//
+if (empty($error)) {
+
+    // query for getting all grades from the User whos logged in.
+    $query = "SELECT pruefung.grade
+    FROM pruefung
+    left JOIN users ON pruefung.Users_idUsers=users.idUsers
+    where users.username=?";
+    // TODO prepare()
+    $stmt = $mysqli->prepare($query);
+    $stmt->bind_param("s", $_SESSION['username']);
+
+    // TODO execute()
+   
+    if (!$stmt->execute()) {
+        echo "Ausführung";
+        $error .= 'execute() failed ' . $mysqli->error . '<br />';
+    }
+    $result = $stmt->get_result();
+    
+        if ($result->num_rows) {
+            $row = $result->fetch_assoc();
+    var_dump($row);
+        
+    }
+}
+
+
 // Abfrage AVG Mathe
 /*
 if (empty($error)) {
@@ -64,7 +92,6 @@ $query = "SELECT * FROM users";
 
 $stmt = $mysqli->prepare($query);
 
-$stmt->bind_param("s", $username);
 $stmt->execute();
 
 $result=$stmt->get_result();
@@ -144,16 +171,8 @@ $stmt->close();
                 <th scope="row">Mathematik</th>
                 <!-- Ausgabe der Variabel avgmathe -->
                 <td><?php echo $avgmathe ?></td>
-            </tr>
-            <tr class="table-success">
-                <th scope="row">Franz</th>
-                <td>4.7</td>
 
-            </tr>
-            <tr class="table-warning">
-                <th scope="row">Mathe</th>
-                <td>3</td>
-            </tr>
+
             </tbody>
         </table>
     </div>
