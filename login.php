@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)) {
     if (empty($error)) {
 
         // TODO SELECT Query erstellen, user und passwort mit Datenbank vergleichen
-        $query = "select username, password from users where username = ?";
+        $query = "select username, password, idUsers AS id from users where username = ?";
         // TODO prepare()
         $stmt = $mysqli->prepare($query);
         // TODO bind_param()
@@ -65,6 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)) {
             if (password_verify($password, $row['password'])) {
                 $message .= "Sie sind nun eingeloggt";
                 session_start();
+                $_SESSION['userid'] = $row['id'];
                 $_SESSION['username'] = $username;
                 $_SESSION['loggedin'] = true;
                 echo $_SESSION['username'];
