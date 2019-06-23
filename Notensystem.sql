@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 19. Jun 2019 um 15:08
--- Server-Version: 10.1.39-MariaDB
+-- Erstellungszeit: 23. Jun 2019 um 14:29
+-- Server-Version: 10.1.40-MariaDB
 -- PHP-Version: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -33,16 +33,6 @@ CREATE TABLE `faecher` (
   `name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Daten für Tabelle `faecher`
---
-
-INSERT INTO `faecher` (`idFaecher`, `name`) VALUES
-(1, 'Mathematik'),
-(2, 'Englisch'),
-(3, 'Deutsch'),
-(4, 'ABU');
-
 -- --------------------------------------------------------
 
 --
@@ -55,29 +45,8 @@ CREATE TABLE `pruefung` (
   `grade` double NOT NULL,
   `description` varchar(100) NOT NULL,
   `Users_idUsers` int(11) NOT NULL,
-  `Faecher_idFaecher` int(11) NOT NULL,
-  `Semester_idSemester` int(11) NOT NULL
+  `Faecher_idFaecher` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `semester`
---
-
-CREATE TABLE `semester` (
-  `idSemester` int(11) NOT NULL,
-  `name` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Daten für Tabelle `semester`
---
-
-INSERT INTO `semester` (`idSemester`, `name`) VALUES
-(1, '1'),
-(2, '2'),
-(3, '3');
 
 -- --------------------------------------------------------
 
@@ -95,13 +64,6 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Daten für Tabelle `users`
---
-
-INSERT INTO `users` (`idUsers`, `firstname`, `lastname`, `username`, `password`, `email`) VALUES
-(3, 'Fabian', 'Zeller', 'SwissPrekek', '$2y$10$5DDaCXRXLCt2C6.oddnG1.Rh/nKZ968Ivf2BcqLugHKuNACN9eqIO', 'fabian.z@eblcom.ch');
-
---
 -- Indizes der exportierten Tabellen
 --
 
@@ -117,14 +79,7 @@ ALTER TABLE `faecher`
 ALTER TABLE `pruefung`
   ADD PRIMARY KEY (`idPruefung`),
   ADD KEY `fk_Pruefung_Users_idx` (`Users_idUsers`),
-  ADD KEY `fk_Pruefung_Faecher1_idx` (`Faecher_idFaecher`),
-  ADD KEY `fk_Pruefung_Semester1_idx` (`Semester_idSemester`);
-
---
--- Indizes für die Tabelle `semester`
---
-ALTER TABLE `semester`
-  ADD PRIMARY KEY (`idSemester`);
+  ADD KEY `fk_Pruefung_Faecher1_idx` (`Faecher_idFaecher`);
 
 --
 -- Indizes für die Tabelle `users`
@@ -140,25 +95,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT für Tabelle `faecher`
 --
 ALTER TABLE `faecher`
-  MODIFY `idFaecher` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idFaecher` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT für Tabelle `pruefung`
 --
 ALTER TABLE `pruefung`
-  MODIFY `idPruefung` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT für Tabelle `semester`
---
-ALTER TABLE `semester`
-  MODIFY `idSemester` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idPruefung` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT für Tabelle `users`
 --
 ALTER TABLE `users`
-  MODIFY `idUsers` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idUsers` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints der exportierten Tabellen
@@ -168,9 +117,7 @@ ALTER TABLE `users`
 -- Constraints der Tabelle `pruefung`
 --
 ALTER TABLE `pruefung`
-  ADD CONSTRAINT `fk_Pruefung_Faecher1` FOREIGN KEY (`Faecher_idFaecher`) REFERENCES `faecher` (`idFaecher`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Pruefung_Semester1` FOREIGN KEY (`Semester_idSemester`) REFERENCES `semester` (`idSemester`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Pruefung_Users` FOREIGN KEY (`Users_idUsers`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Pruefung_Faecher1` FOREIGN KEY (`Faecher_idFaecher`) REFERENCES `faecher` (`idFaecher`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -64,12 +64,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)) {
 
             if (password_verify($password, $row['password'])) {
                 $message .= "Sie sind nun eingeloggt";
-                session_start();
                 $_SESSION['userid'] = $row['id'];
                 $_SESSION['username'] = $username;
                 $_SESSION['loggedin'] = true;
                 echo $_SESSION['username'];
                 echo $_SESSION['loggedin'];
+                echo $_SESSION['userid'];
                 header('Location: noten.php');
             } else {
                 $error .= "Benutzername oder Passwort sind falsch";

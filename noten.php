@@ -1,5 +1,7 @@
 <?php
 include('dbconnector.inc.php');
+session_start();
+$error = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Fach erstellung
@@ -19,7 +21,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // INSERT NOT WORKING FOR SOME REASON
     //Noten hinzufügen
     if (isset($_POST['addNote'])) {
         $fachid = $_POST['fachid'];
@@ -37,13 +38,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if (isset($_POST['note'])) {
-            $note = floatval($_POST['note']);
+            if (!preg_match("/^(?=.*[1-6])[1-6](?:\.\d+)?/", $_POST['note'])) {
+                $error .= "Die Note entspricht nicht dem geforderten Format.";
+            } else {
+                $note = floatval($_POST['note']);
+            }
         } else {
             $error .= "Note input falsch";
         }
 
         if (empty($error)) {
-            $query = "INSERT INTO pruefung (name, description, grade, Users_idUsers, Faecher_idFaecher, Semester_idSemester) VALUES (?, ?, ?, ?, ?, 1)";
+            $query = "INSERT INTO pruefung (name, description, grade, Users_idUsers, Faecher_idFaecher) VALUES (?, ?, ?, ?, ?)";
             $stmt = $mysqli->prepare($query);
             $stmt->bind_param("ssdii", $pruefungname, $beschreibung, $note, $_SESSION['userid'], $fachid);
             $stmt->execute();
@@ -71,7 +76,6 @@ if (empty($error)) {
     }
 }
 
-session_start();
 if (isset($_SESSION['loggedin'])) {
     $Login = "<a href='logout.php'><button type=\"button\" class=\"btn btn-info\">Logout: " . $_SESSION['username'] . "</button></a>";
     $Noten = "<a class=\"nav-link\" href=\"noten.php\">Noten<span class=\"sr-only\">(current)</span></a>";
@@ -214,7 +218,7 @@ if (!empty($error)) {
                 <br />
                 <input name="pruefungname" type="text" class="form-control" placeholder="Prüfung" aria-label="Prüfung" maxlength="45" required>
                 <input name="beschreibung" type="text" class="form-control" placeholder="Beschreibung" aria-label="Beschreibung" maxlength="100" required>
-                <input name="note" type="number" class="form-control" placeholder="1-6" aria-label="Note" maxlength="10" required>
+                <input name="note" type="number" class="form-control" placeholder="1-6" aria-label="Note" required>
                 <div class="input-group-append">
                     <input name="addNote" class="btn btn-success" type="submit" value="Note hinzufügen">
                 </div>
