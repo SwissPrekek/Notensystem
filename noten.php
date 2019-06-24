@@ -1,17 +1,22 @@
+<!-- PHP Tag -->
 <?php
+// Includieren des dbconnectors
 include('dbconnector.inc.php');
+//starten der Session
 session_start();
+//error Variable LEER definieren
 $error = '';
-
+// Wenn die Methode des Servers POST ist wird der Code ausgeführt
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Fach erstellung
     if (isset($_POST['createFach'])) {
+        // Clientseitige Validierung
         if (isset($_POST['fachname']) && !empty(trim($_POST['fachname'])) && strlen(trim($_POST['fachname'])) <= 45) {
             $fachname = htmlspecialchars(trim($_POST['fachname']));
         } else {
             $error .= "Fach input falsch";
         }
-
+        // SQL Abfrage um Fächer hinzuzufügen
         if (empty($error)) {
             $query = "INSERT INTO faecher (name) VALUES (?)";
             $stmt = $mysqli->prepare($query);
@@ -46,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $error .= "Note input falsch";
         }
-
+        // SQL Statement um Neine Prüfung (Note) zu erstellen
         if (empty($error)) {
             $query = "INSERT INTO pruefung (name, description, grade, Users_idUsers, Faecher_idFaecher) VALUES (?, ?, ?, ?, ?)";
             $stmt = $mysqli->prepare($query);
@@ -57,25 +62,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-if (empty($error)) {
 
-    // TODO SELECT Query erstellen, user und passwort mit Datenbank vergleichen
-    $query = "select * from users";
-    // TODO prepare()
-    $stmt = $mysqli->prepare($query);
-
-
-    // TODO execute()
-    if (!$stmt->execute()) {
-        echo "Ausführung";
-        $error .= 'execute() failed ' . $mysqli->error . '<br />';
-    }
-    $result = $stmt->get_result();
-    if ($result->num_rows) {
-        $row = $result->fetch_assoc();
-    }
-}
-
+// Wenn man eingeloggt ist hat man im Header den Punkt "Noten" zur Auswahl.
 if (isset($_SESSION['loggedin'])) {
     $Login = "<a href='logout.php'><button type=\"button\" class=\"btn btn-info\">Logout: " . $_SESSION['username'] . "</button></a>";
     $Noten = "<a class=\"nav-link\" href=\"noten.php\">Noten<span class=\"sr-only\">(current)</span></a>";
@@ -100,7 +88,7 @@ if (!empty($error)) {
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Noten</title>
 </head>
 
 <body>
@@ -130,7 +118,7 @@ if (!empty($error)) {
                         </li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0"><?php
-
+                                                            // Session wird Regeneriert
                                                             session_regenerate_id(true);
                                                             echo $Login;
                                                             ?>
@@ -149,6 +137,7 @@ if (!empty($error)) {
                 </thead>
                 <tbody>
                     <?php
+                    // SQL Statement um die Fächer anzuzeigen. (DISCTINCT ist da, weil es jedes Fach nur 1 mal anzeigen darf)
                     $query = "SELECT DISTINCT f.name AS fach, f.idFaecher AS fachid 
                         FROM faecher f 
                         INNER JOIN pruefung p ON p.Faecher_idFaecher = f.idFaecher 
@@ -158,10 +147,12 @@ if (!empty($error)) {
                     $stmt->bind_param("i", $_SESSION['userid']);
                     $stmt->execute();
                     $result = $stmt->get_result();
+                    //Schleife welche, über alle Fächer loopt und dann immer die Durchschnitts des jeweiligen Faches holt
                     while ($row = $result->fetch_assoc()) {
                         $notequery = "SELECT AVG(grade) AS note FROM pruefung where Faecher_idFaecher = ?";
                         $notestmt = $mysqli->prepare($notequery);
                         $notestmt->bind_param("i", $row['fachid']);
+                        // Wenn notestmt true ist wird das SQL Statement ausgeführt
                         if (!$notestmt->execute()) {
                             echo 'execute() failed ' . $mysqli->error . '<br />';
                         }
@@ -171,6 +162,7 @@ if (!empty($error)) {
                         }
                         ?>
                         <tr class="<?php
+                                    // Ausgabe der Durchschnittsnote
                                     if ($avg['note'] >= 4) {
                                         echo 'table-success';
                                     } else {
@@ -180,7 +172,7 @@ if (!empty($error)) {
                             <td scope="row">
                                 <?php echo $row['fach']; ?>
                             </td>
-                            <!-- Ausgabe der Variabel avgmathe -->
+                            
                             <td>
                                 <?php echo $avg["note"]; ?>
                             </td>
@@ -197,7 +189,7 @@ if (!empty($error)) {
             </table>
         </div>
 
-
+        <!-- Formular um eine Prüfung einzutragen -->
         <form name="noteform" method="post">
             <div class="input-group mb-3">
                 <select name="fachid" class="form-control" id="fach_select">
@@ -206,7 +198,7 @@ if (!empty($error)) {
                     $stmt = $mysqli->prepare($query);
                     $stmt->execute();
                     $result = $stmt->get_result();
-
+                    // Gibt alle Fächer ins Select aus
                     while ($row = $result->fetch_assoc()) {
                         echo "<option value='" . $row['idFaecher'] . "'>" . $row['name'] . "</option>";
                     }
@@ -216,6 +208,7 @@ if (!empty($error)) {
                 </select>
 
                 <br />
+                <!-- Inputs für eine Prüfung / Note einzutragen -->
                 <input name="pruefungname" type="text" class="form-control" placeholder="Prüfung" aria-label="Prüfung" maxlength="45" required>
                 <input name="beschreibung" type="text" class="form-control" placeholder="Beschreibung" aria-label="Beschreibung" maxlength="100" required>
                 <input name="note" type="number" class="form-control" placeholder="1-6" aria-label="Note" required>
@@ -225,7 +218,7 @@ if (!empty($error)) {
             </div>
         </form>
 
-
+        <!-- Inputs um ein Fach einzutragen -->
         <form name="fachform" method="post">
             <div class="input-group mb-3">
                 <input name="fachname" type="text" class="form-control" placeholder="Fachname" aria-label="Fachname" maxlength="45" required>
