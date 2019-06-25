@@ -14,4 +14,4 @@ Das Notensystenm welches von Fabian Zeller und Benjamin Girard programmiert wurd
 
 ## Testing anhand der Testfälle
 
-## Fertigstellung
+## Sonstiges
