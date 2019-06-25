@@ -211,7 +211,7 @@ if (!empty($error)) {
                 <!-- Inputs für eine Prüfung / Note einzutragen -->
                 <input name="pruefungname" type="text" class="form-control" placeholder="Prüfung" aria-label="Prüfung" maxlength="45" required>
                 <input name="beschreibung" type="text" class="form-control" placeholder="Beschreibung" aria-label="Beschreibung" maxlength="100" required>
-                <input name="note" type="number" class="form-control" placeholder="1-6" aria-label="Note" required>
+                <input name="note" type="text" class="form-control" placeholder="1-6" steps="0.001" aria-label="Note" required>
                 <div class="input-group-append">
                     <input name="addNote" class="btn btn-success" type="submit" value="Note hinzufügen">
                 </div>

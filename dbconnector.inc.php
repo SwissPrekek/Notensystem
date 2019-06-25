@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
-$username = "root";
-$password = "";
+$username = "151";
+$password = "151";
 $database = 'notensystem';
 
 // Create connection
