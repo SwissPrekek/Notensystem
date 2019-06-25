@@ -28,4 +28,4 @@ grant select, insert, update, delete on notensystem.* to '151'@'localhost';
 ```
 
 ## Fertigstellung
-Die Das Notensystem kann nun ik Browser unter localhost/Notensystem erreicht werden.
+Die Das Notensystem kann nun im Browser unter localhost/Notensystem erreicht werden.
