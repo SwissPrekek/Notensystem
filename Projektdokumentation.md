@@ -7,7 +7,7 @@ Das Notensystem welches von Fabian Zeller und Benjamin Girard programmiert wurde
 * Durchschnittsnoten des eingeloggten Users anzeigen
 * Fächer anzeigen
 * Fach hinzufügen
-* Note / Prüfung hinzufuügen
+* Note / Prüfung hinzufügen
 
 
 ## Testing
