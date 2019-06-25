@@ -10,8 +10,7 @@ $row = null;
 session_start();
 if (isset($_SESSION['loggedin'])) {
     $Noten = "<a class=\"nav-link\" href=\"noten.php\">Noten<span class=\"sr-only\">(current)</span></a>";
-} else {
-}
+} else { }
 
 
 // Formular wurde gesendet und Besucher ist noch nicht angemeldet.
@@ -43,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)) {
     // kein fehler
     if (empty($error)) {
 
-        // TODO SELECT Query erstellen, user und passwort mit Datenbank vergleichen
+        //  SELECT query für User überprüfung sowie User ID in die $SESSION Variable speichern
         $query = "select username, password, idUsers AS id from users where username = ?";
         // TODO prepare()
         $stmt = $mysqli->prepare($query);
@@ -64,6 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)) {
 
             if (password_verify($password, $row['password'])) {
                 $message .= "Sie sind nun eingeloggt";
+                //User ID in die Session Variable Dies ist beim SQL Statement in Noten.PHP wichtig. Siehe Zeile 140
                 $_SESSION['userid'] = $row['id'];
                 $_SESSION['username'] = $username;
                 $_SESSION['loggedin'] = true;
@@ -93,8 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -110,8 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)) {
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">Notenverwaltung</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -130,7 +128,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)) {
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
-                <?php// echo($row['firstname'] . " " . $row['lastname']); ?>
+                    <? php 
+                    ?>
                 </form>
             </div>
         </nav>
@@ -151,18 +150,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)) {
     <form action="" method="POST">
         <div class="form-group">
             <label for="username">Benutzername *</label>
-            <input type="text" name="username" class="form-control" id="username" value=""
-                   placeholder="Gross- und Keinbuchstaben, min 6 Zeichen." maxlength="30" required="true"
-                   pattern="(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}" title="Gross- und Keinbuchstaben, min 6 Zeichen.">
+            <input type="text" name="username" class="form-control" id="username" value="" placeholder="Gross- und Keinbuchstaben, min 6 Zeichen." maxlength="30" required="true" pattern="(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{6,}" title="Gross- und Keinbuchstaben, min 6 Zeichen.">
         </div>
         <!-- password -->
         <div class="form-group">
             <label for="password">Password *</label>
-            <input type="password" name="password" class="form-control" id="password"
-                   placeholder="Gross- und Kleinbuchstaben, Zahlen, Sonderzeichen, min. 8 Zeichen, keine Umlaute"
-                   pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-                   title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute."
-                   required="true">
+            <input type="password" name="password" class="form-control" id="password" placeholder="Gross- und Kleinbuchstaben, Zahlen, Sonderzeichen, min. 8 Zeichen, keine Umlaute" pattern="(?=^.{8,}$)((?=.*\d+)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="mindestens einen Gross-, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen, mindestens 8 Zeichen lang,keine Umlaute." required="true">
         </div>
         <button type="submit" name="button" value="submit" class="btn btn-info">Senden</button>
         <button type="reset" name="button" value="reset" class="btn btn-warning">Löschen</button>
@@ -171,21 +164,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($error)) {
 
 
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 
 </html>

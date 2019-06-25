@@ -172,7 +172,7 @@ if (!empty($error)) {
                             <td scope="row">
                                 <?php echo $row['fach']; ?>
                             </td>
-                            
+
                             <td>
                                 <?php echo $avg["note"]; ?>
                             </td>

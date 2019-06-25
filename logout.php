@@ -10,5 +10,3 @@ session_unset();
 session_destroy();
 // Weiterleitung auf Login
 header('Location: login.php');
-
-?>
